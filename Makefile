@@ -6,7 +6,7 @@
 #    By: acaracci <acaracci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/31 14:39:16 by acaracci          #+#    #+#              #
-#    Updated: 2024/08/13 13:27:17 by acaracci         ###   ########.fr        #
+#    Updated: 2024/09/02 19:53:45 by acaracci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,29 +14,40 @@ NAME = so_long
 
 CFILES = \
 			main.c \
+			rescheck.c \
 			checkber.c \
-			ft_putstr.c \
 			readmap.c \
 			split.c \
 			str_join.c \
+			allchecks.c \
+			mappathcopy.c\
+			mlxstruct.c\
+			moves.c\
+			putmap.c\
+			putwalls.c\
+			gamestart.c\
+			
+			
 			
 OBJ = $(CFILES:.c=.o)
 CC = gcc
 FLAGS = -Wall -Wextra -Werror 
 RM = rm -rf
-MLX = mlx/libmlx_Linux.a
-HDRS = so_long.h
+MLX = mlx_linux/libmlx.a
+# HDRS = so_long.h
 
 %.o: %.c
-	@$(CC) -g -I/usr/include -Imlx_linux -I ${HDRS} -c $< -o $@;
+	@$(CC) -g -I/usr/include -Imlx_linux -c $< -o $@;
+# @$(CC) -g -I/usr/include -Imlx_linux -I ${HDRS} -c $< -o $@;
 
 name : $(NAME)
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	@(make -C ./mlx) 2> /dev/null
-	@$(CC) -g $(OBJ) $(FLAGS) -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -D LIN=1 -o $(NAME)
+	@(make -C ./mlx_linux)
+	@$(CC) -g $(OBJ) $(FLAGS) -Lmlx_linux -L/usr/lib -Imlx_linux ${MLX} -lXext -lX11 -lm -lz -o $(NAME)
+# @$(CC) -g $(OBJ) $(FLAGS) -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -D LIN=1 -o $(NAME)
 	@echo "$(GREEN)$(NAME) compiled succesfully.$(PURPLE)"
 
 clean :

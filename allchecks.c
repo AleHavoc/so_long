@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   allchecks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acaracci <acaracci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/08 17:35:15 by acaracci          #+#    #+#             */
-/*   Updated: 2024/08/08 19:09:53 by acaracci         ###   ########.fr       */
+/*   Created: 2024/08/19 14:25:51 by acaracci          #+#    #+#             */
+/*   Updated: 2024/09/02 16:54:23 by acaracci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-    // #include <unistd.h>
-    // #include "so_long.h"
+#include "so_long.h"
 
-    // void	ft_putchar(char c)
-    // {
-    //     printf()
-    // }
-
-    // void	ft_putstr(char *str)
-    // {
-    //     int i;
-
-    //     i = 0;
-
-    //     while (str[i])
-    //     {
-    //         ft_putchar(str[i]);
-    //         i += 2;
-    //     }
-    // }
+int ft_checks(char	*map, t_game *game)
+{
+	if(oneplayer(map) == 1)
+	{
+		printf("sono qui");
+		return(1);
+	}
+	if(oneexit(map, game) == 1)
+	{
+		printf("sono li");
+		return(1);
+	}
+	if(countcollect(map, game) == 1)
+	{	
+		printf("ero li");
+		return(1);
+	}
+	return(0);
+}

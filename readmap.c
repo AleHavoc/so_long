@@ -6,7 +6,7 @@
 /*   By: acaracci <acaracci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:24:56 by acaracci          #+#    #+#             */
-/*   Updated: 2024/08/13 16:50:22 by acaracci         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:51:03 by acaracci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ char	*readmap(char *pathmap)
 	while(one == 1)
 	{
 		one = read(fd, buffer, 1);
-		buffer[1] = '\0'; 
-		if(one == 0)
+		buffer[1] = '\0';
+		if (one == 0)
 			break;
 		backup = ft_strjoin(backup, buffer);
-		if(one == -1)
-			return(NULL);
+		if (one == -1)
+			return (NULL);
 	}
-	return(backup);
+	return (backup);
 }
 
 int	charscontrol(char *map)
@@ -47,7 +47,7 @@ int	charscontrol(char *map)
 	while(map[++i])
 	{
 		if(map[i] != 'E' && map[i] != '0' && map[i] != '1' && map[i] != 'C'
-			&& map[i] != 'P')
+			&& map[i] != 'P' && map[i] != '\n')
 			{
 				printf("DEVI UTILIZZA SOLO QUESTI\n");
 				return(1);
@@ -55,8 +55,75 @@ int	charscontrol(char *map)
 		if(i < ft_strlen(map))
 		{
 			if(map[i] == '\n' && map[i + 1] == '\n')
+			{
 				return(1);
+			}
 		}
 	}
+	return(0);
+}
+
+int oneexit(char *map, t_game *game)
+{
+	int	i;
+	int	e;
+	
+	i = -1;
+	e = 0;
+	
+	while(map[++i])
+	{
+		if(map[i] == 'E')
+		{
+			e++;
+		}
+	}
+	if(e != 1)
+	{
+		return(1);
+	}
+	game->exit = e;
+	return(0);
+}
+
+int	oneplayer(char *map)
+{
+	t_game game;
+	int i;
+	int p;
+	
+	i = -1;
+	p = 0;
+	
+	while(map[++i])
+	{
+		if(map[i] == 'P')
+		{
+			p++;
+		}
+	}
+	if(p != 1)
+		return(1);
+	return(0);
+}
+
+int countcollect(char *map, t_game *game)
+{
+	int	i;
+	int	c;
+	
+	i = -1;
+	c = 0;
+	
+	while(map[++i])
+	{
+		if(map[i] == 'C')
+		{
+			c++;
+		}
+	}
+	if(c < 1)
+		return(1);
+	game->collcount = c;
 	return(0);
 }
